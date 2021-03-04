@@ -1,4 +1,4 @@
-const { NotImplementedException } = require('../../../../utils/errors')
+const { NotImplementedException } = require('../../../utils/errors')
 
 class AddPostRepository {
     add (postModel) {
