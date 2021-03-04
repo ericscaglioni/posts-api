@@ -1,11 +1,11 @@
 const { NotImplementedException } = require('../../../utils/errors')
 
-class AddPostRepository {
+class IAddPostRepository {
     add (postModel) {
         return new NotImplementedException()
     }
 }
 
 module.exports = {
-    AddPostRepository
+    IAddPostRepository
 }
