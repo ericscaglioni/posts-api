@@ -1,4 +1,4 @@
-const { badRequest, serverError } = require('../../helpers/http/http-helper')
+const { badRequest, serverError, created } = require('../../helpers/http/http-helper')
 const { MissingParamError } = require('../../errors')
 const { AddPostController } = require('./add-post-controller')
 const { IAddPost } = require('../../../domain/usecases/add-post')
@@ -68,5 +68,15 @@ describe('Add Post Controller suite tests', () => {
         })
         const httpResponse = await sut.handle(makeHttpRequest())
         expect(httpResponse).toEqual(serverError(new Error('test')))
+    })
+
+    it('Should return 201 on success', async () => {
+        const { sut } = makeSut()
+        const httpResponse = await sut.handle(makeHttpRequest())
+        expect(httpResponse).toEqual(created({
+            id: 'any_id',
+            title: 'any_title',
+            text: 'any_text'
+        }))
     })
 });

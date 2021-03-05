@@ -10,7 +10,13 @@ const serverError = (error) => ({
     body: new ServerError(error.stack)
 })
 
+const created = (data) => ({
+    statusCode: 201,
+    body: data
+})
+
 module.exports = {
     badRequest,
-    serverError
+    serverError,
+    created
 }
