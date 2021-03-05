@@ -23,15 +23,11 @@ describe('Post File Repository suite tests', () => {
                 title: 'any_title',
                 text: 'any_text'
             }
-            await sut.add(postData)
+            const postModel = await sut.add(postData)
 
             postCollection = JSON.parse(await readFile(filePath))
             expect(postCollection).toHaveLength(1)
-            expect(postCollection[0]).toEqual({
-                id: expect.any(String),
-                title: 'any_title',
-                text: 'any_text'
-            })
+            expect(postCollection[0]).toEqual(postModel)
         })
     });
 });

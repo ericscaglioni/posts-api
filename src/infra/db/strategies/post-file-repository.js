@@ -35,6 +35,7 @@ class FileRepository extends IPost {
         postModel.id = uuidv4()
         postCollection.push(postModel)
         await this._writeFile(postCollection)
+        return postModel
     }
 
     isConnected () {
