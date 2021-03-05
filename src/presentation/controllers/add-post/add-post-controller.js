@@ -1,5 +1,5 @@
 const { MissingParamError } = require('../../errors')
-const { badRequest } = require('../../helpers/http/http-helper')
+const { badRequest, serverError } = require('../../helpers/http/http-helper')
 const { IController } = require('../../protocols/controller')
 
 class AddPostController extends IController {
@@ -9,17 +9,21 @@ class AddPostController extends IController {
     }
 
     async handle (httpRequest) {
-        const { title, text } = httpRequest.body
-        if (!title) {
-            return badRequest(new MissingParamError('title'))
+        try {
+            const { title, text } = httpRequest.body
+            if (!title) {
+                return badRequest(new MissingParamError('title'))
+            }
+            if (!text) {
+                return badRequest(new MissingParamError('text'))
+            }
+            await this.iAddPost.add({
+                title,
+                text
+            })
+        } catch (error) {
+            return serverError(error)
         }
-        if (!text) {
-            return badRequest(new MissingParamError('text'))
-        }
-        await this.iAddPost.add({
-            title,
-            text
-        })
     }
 }
 
