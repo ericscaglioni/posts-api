@@ -1,7 +1,11 @@
 const { NotImplementedException } = require('../../../utils/errors')
 
 class IPost {
-    add (postModel) {
+    async add (postData) {
+        return new NotImplementedException()
+    }
+
+    isConnected () {
         return new NotImplementedException()
     }
 }
