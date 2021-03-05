@@ -22,5 +22,18 @@ describe('Add Post usecase suite tests', () => {
             await sut.add(postData)
             expect(addSpy).toHaveBeenCalledWith(postData)
         })
+
+        it('Should throw if IAddPostRepository throws', async () => {
+            const { sut, iAddPostRepository } = makeSut()
+            jest.spyOn(iAddPostRepository, 'add').mockImplementationOnce(() => {
+                throw new Error('test')
+            })
+            const postData = {
+                title: 'any_title',
+                text: 'any_text'
+            }
+            const promise = sut.add(postData)
+            await expect(promise).rejects.toThrow()
+        })
     });
 });
