@@ -3,8 +3,9 @@ const { badRequest } = require('../../helpers/http/http-helper')
 const { IController } = require('../../protocols/controller')
 
 class AddPostController extends IController {
-    constructor() {
+    constructor(iAddPost) {
         super()
+        this.iAddPost = iAddPost
     }
 
     async handle (httpRequest) {
@@ -15,6 +16,10 @@ class AddPostController extends IController {
         if (!text) {
             return badRequest(new MissingParamError('text'))
         }
+        await this.iAddPost.add({
+            title,
+            text
+        })
     }
 }
 
