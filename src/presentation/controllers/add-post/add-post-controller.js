@@ -3,20 +3,16 @@ const { badRequest, serverError, created } = require('../../helpers/http/http-he
 const { IController } = require('../../protocols')
 
 class AddPostController extends IController {
-    constructor(iAddPost) {
+    constructor(iAddPost, iValidation) {
         super()
         this.iAddPost = iAddPost
+        this.iValidation = iValidation
     }
 
     async handle (httpRequest) {
         try {
+            this.iValidation.validate(httpRequest.body)
             const { title, text } = httpRequest.body
-            if (!title) {
-                return badRequest(new MissingParamError('title'))
-            }
-            if (!text) {
-                return badRequest(new MissingParamError('text'))
-            }
             const postModel = await this.iAddPost.add({
                 title,
                 text
