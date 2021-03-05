@@ -11,13 +11,10 @@ class FileRepository extends IPost {
     }
 
     async _readFile () {
-        if (this.isConnected()) {
-            const content = JSON.parse(
-                await readFile(this.filePath)
-            )
-            return content
-        }
-        return new Error('Not connected to the Database')
+        const content = JSON.parse(
+            await readFile(this.filePath)
+        )
+        return content
     }
 
     async _writeFile (content) {
@@ -36,10 +33,6 @@ class FileRepository extends IPost {
         postCollection.push(postModel)
         await this._writeFile(postCollection)
         return postModel
-    }
-
-    isConnected () {
-        return this.filePath.length
     }
 }
 

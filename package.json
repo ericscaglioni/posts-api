@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests --runInBand",
+    "test:unit": "npm t -- --watch -c jest-unit.config.js",
+    "test:integration": "npm t -- --watch -c jest-integration.config.js",
+    "test:ci": "npm t -- --coverage"
   },
   "keywords": [],
   "author": "",
