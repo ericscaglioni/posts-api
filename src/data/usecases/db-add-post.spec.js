@@ -6,32 +6,55 @@ const makePostData = () => ({
     text: 'any_text'
 })
 
+const makeIAddPostRepository = () => {
+    class IAddPostRepositoryStub extends IAddPostRepository {
+        async add (postData) {
+            return {
+                id: 'any_id',
+                title: 'any_title',
+                text: 'any_text'
+            }
+        }
+    }
+    return new IAddPostRepositoryStub()
+}
+
 const makeSut = () => {
-    const iAddPostRepository = new IAddPostRepository()
-    const sut = new DbAddPost(iAddPostRepository)
+    const iAddPostRepositoryStub = makeIAddPostRepository()
+    const sut = new DbAddPost(iAddPostRepositoryStub)
     return {
         sut,
-        iAddPostRepository
+        iAddPostRepositoryStub
     }
 }
 
 describe('Add Post usecase suite tests', () => {
     describe('add()', () => {
         it('Should call IAddPostRepository with correct data', async () => {
-            const { sut, iAddPostRepository } = makeSut()
-            const addSpy = jest.spyOn(iAddPostRepository, 'add')
+            const { sut, iAddPostRepositoryStub } = makeSut()
+            const addSpy = jest.spyOn(iAddPostRepositoryStub, 'add')
             const postData = makePostData()
             await sut.add(postData)
             expect(addSpy).toHaveBeenCalledWith(postData)
         })
 
         it('Should throw if IAddPostRepository throws', async () => {
-            const { sut, iAddPostRepository } = makeSut()
-            jest.spyOn(iAddPostRepository, 'add').mockImplementationOnce(() => {
+            const { sut, iAddPostRepositoryStub } = makeSut()
+            jest.spyOn(iAddPostRepositoryStub, 'add').mockImplementationOnce(() => {
                 throw new Error('test')
             })
             const promise = sut.add(makePostData())
             await expect(promise).rejects.toThrow()
+        })
+
+        it('Should return a PostModel on success', async () => {
+            const { sut } = makeSut()
+            const postModel = await sut.add(makePostData())
+            expect(postModel).toEqual({
+                id: 'any_id',
+                title: 'any_title',
+                text: 'any_text'
+            })
         })
     });
 });

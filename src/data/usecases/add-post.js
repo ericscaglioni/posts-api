@@ -7,7 +7,7 @@ class DbAddPost extends IPost {
     }
 
     async add (postData) {
-        await this.iAddPostRepository.add(postData)
+        return await this.iAddPostRepository.add(postData)
     }
 }
 
