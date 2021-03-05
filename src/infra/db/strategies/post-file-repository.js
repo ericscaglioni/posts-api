@@ -12,10 +12,19 @@ class FileRepository extends IPost {
 
     async _readFile () {
         if (this.isConnected()) {
-            const content = JSON.parse(await readFile(this.filePath))
+            const content = JSON.parse(
+                await readFile(this.filePath)
+            )
             return content
         }
         return new Error('Not connected to the Database')
+    }
+
+    async _writeFile (content) {
+        await writeFile(
+            this.filePath,
+            JSON.stringify(content)
+        )
     }
 
     async add (postData) {
@@ -25,7 +34,7 @@ class FileRepository extends IPost {
         })
         postModel.id = uuidv4()
         postCollection.push(postModel)
-        await writeFile(this.filePath, JSON.stringify(postCollection))
+        await this._writeFile(postCollection)
     }
 
     isConnected () {
