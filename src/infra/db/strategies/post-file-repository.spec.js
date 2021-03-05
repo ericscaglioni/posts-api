@@ -8,7 +8,7 @@ const makeSut = () => new FileRepository()
 
 let postCollection = []
 
-describe('Post File Repository Suite Tests', () => {
+describe('Post File Repository suite tests', () => {
     describe('add()', () => {
         beforeEach(async () => {
             writeFile(filePath, '[]')
