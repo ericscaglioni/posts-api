@@ -1,12 +1,12 @@
 const { IAddPostRepository } = require('../protocols/db/add-post-repository')
 const { DbAddPost } = require('./add-post')
 
-const makePostData = () => ({
+const mockPostData = () => ({
     title: 'any_title',
     text: 'any_text'
 })
 
-const makeIAddPostRepository = () => {
+const mockIAddPostRepository = () => {
     class IAddPostRepositoryStub extends IAddPostRepository {
         async add (postData) {
             return {
@@ -20,7 +20,7 @@ const makeIAddPostRepository = () => {
 }
 
 const makeSut = () => {
-    const iAddPostRepositoryStub = makeIAddPostRepository()
+    const iAddPostRepositoryStub = mockIAddPostRepository()
     const sut = new DbAddPost(iAddPostRepositoryStub)
     return {
         sut,
@@ -33,7 +33,7 @@ describe('Add Post usecase suite tests', () => {
         it('Should call IAddPostRepository with correct data', async () => {
             const { sut, iAddPostRepositoryStub } = makeSut()
             const addSpy = jest.spyOn(iAddPostRepositoryStub, 'add')
-            const postData = makePostData()
+            const postData = mockPostData()
             await sut.add(postData)
             expect(addSpy).toHaveBeenCalledWith(postData)
         })
@@ -43,13 +43,13 @@ describe('Add Post usecase suite tests', () => {
             jest.spyOn(iAddPostRepositoryStub, 'add').mockImplementationOnce(() => {
                 throw new Error('test')
             })
-            const promise = sut.add(makePostData())
+            const promise = sut.add(mockPostData())
             await expect(promise).rejects.toThrow()
         })
 
         it('Should return a PostModel on success', async () => {
             const { sut } = makeSut()
-            const postModel = await sut.add(makePostData())
+            const postModel = await sut.add(mockPostData())
             expect(postModel).toEqual({
                 id: 'any_id',
                 title: 'any_title',
