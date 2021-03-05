@@ -20,13 +20,18 @@ describe('Post File Repository Suite Tests', () => {
 
             const sut = makeSut()
             const postData = {
-                title: 'any title',
-                text: 'any text'
+                title: 'any_title',
+                text: 'any_text'
             }
             await sut.add(postData)
 
             postCollection = JSON.parse(await readFile(filePath))
             expect(postCollection).toHaveLength(1)
+            expect(postCollection[0]).toEqual({
+                id: expect.any(String),
+                title: 'any_title',
+                text: 'any_text'
+            })
         })
     });
 });
