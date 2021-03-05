@@ -1,6 +1,6 @@
 const { MissingParamError } = require('../../errors')
 const { badRequest, serverError, created } = require('../../helpers/http/http-helper')
-const { IController } = require('../../protocols/controller')
+const { IController } = require('../../protocols')
 
 class AddPostController extends IController {
     constructor(iAddPost) {
