@@ -1,6 +1,11 @@
 const { IAddPostRepository } = require('../protocols/db/add-post-repository')
 const { DbAddPost } = require('./add-post')
 
+const makePostData = () => ({
+    title: 'any_title',
+    text: 'any_text'
+})
+
 const makeSut = () => {
     const iAddPostRepository = new IAddPostRepository()
     const sut = new DbAddPost(iAddPostRepository)
@@ -15,10 +20,7 @@ describe('Add Post usecase suite tests', () => {
         it('Should call IAddPostRepository with correct data', async () => {
             const { sut, iAddPostRepository } = makeSut()
             const addSpy = jest.spyOn(iAddPostRepository, 'add')
-            const postData = {
-                title: 'any_title',
-                text: 'any_text'
-            }
+            const postData = makePostData()
             await sut.add(postData)
             expect(addSpy).toHaveBeenCalledWith(postData)
         })
@@ -28,11 +30,7 @@ describe('Add Post usecase suite tests', () => {
             jest.spyOn(iAddPostRepository, 'add').mockImplementationOnce(() => {
                 throw new Error('test')
             })
-            const postData = {
-                title: 'any_title',
-                text: 'any_text'
-            }
-            const promise = sut.add(postData)
+            const promise = sut.add(makePostData())
             await expect(promise).rejects.toThrow()
         })
     });
