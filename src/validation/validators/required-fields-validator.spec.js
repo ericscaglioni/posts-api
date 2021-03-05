@@ -13,4 +13,10 @@ describe('Required Fields Validator suite tests', () => {
         })
         expect(error).toEqual(new MissingParamError(requiredFields[0]))
     })
+
+    it('Should not return if validation succeeds', () => {
+        const sut = makeSut()
+        const error = sut.validate({ title: 'any_title' })
+        expect(error).toBeFalsy()
+    })
 });
