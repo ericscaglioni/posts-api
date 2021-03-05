@@ -48,12 +48,19 @@ const makeSut = () => {
 }
 
 describe('Add Post Controller suite tests', () => {
-    it('Should call Validation with correct data', async () => {
+    it('Should call IValidation with correct data', async () => {
         const { sut, iValidationStub } = makeSut()
         const validateSpy = jest.spyOn(iValidationStub, 'validate')
         const httpRequest = makeHttpRequest()
         await sut.handle(httpRequest)
         expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
+    })
+
+    it('Should return 400 if IValidation returns an error', async () => {
+        const { sut, iValidationStub } = makeSut()
+        jest.spyOn(iValidationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'))
+        const httpResponse = await sut.handle(makeHttpRequest())
+        expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')))
     })
 
     it('Should call IAddPost with correct data', async () => {

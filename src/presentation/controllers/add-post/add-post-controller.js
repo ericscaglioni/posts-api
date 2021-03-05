@@ -11,7 +11,10 @@ class AddPostController extends IController {
 
     async handle (httpRequest) {
         try {
-            this.iValidation.validate(httpRequest.body)
+            const error = this.iValidation.validate(httpRequest.body)
+            if (error) {
+                return badRequest(error)
+            }
             const { title, text } = httpRequest.body
             const postModel = await this.iAddPost.add({
                 title,
