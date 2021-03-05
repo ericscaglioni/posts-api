@@ -12,6 +12,9 @@ class AddPostController extends IController {
         if (!title) {
             return badRequest(new MissingParamError('title'))
         }
+        if (!text) {
+            return badRequest(new MissingParamError('text'))
+        }
     }
 }
 
