@@ -1,7 +1,7 @@
 const { NotImplementedException } = require('../../../utils/errors')
 
 class IAddPostRepository {
-    add (postModel) {
+    add (postData) {
         return new NotImplementedException()
     }
 }

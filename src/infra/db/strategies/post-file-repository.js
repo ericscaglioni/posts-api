@@ -3,7 +3,6 @@ const { join } = require('path')
 const { readFile, writeFile } = require('fs/promises')
 const { v4: uuidv4 } = require('uuid')
 const { PostModel } = require('../../../domain/models/post-model')
-
 class FileRepository extends IPost {
     constructor () {
         super()
