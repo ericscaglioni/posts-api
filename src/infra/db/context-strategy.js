@@ -8,10 +8,6 @@ class ContextStrategy extends IPost {
     add (postModel) {
         return this._database.add(postModel)
     }
-
-    isConnected () {
-        return this._database.isConnected()
-    }
 }
 
 module.exports = {

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --passWithNoTests --runInBand",
     "test:unit": "npm t -- -c jest-unit.config.js",
-    "test:integration": "npm t -- --watch -c jest-integration.config.js",
+    "test:integration": "npm t -- -c jest-integration.config.js",
     "test:ci": "npm t -- --coverage"
   },
   "keywords": [],

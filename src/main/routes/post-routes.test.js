@@ -11,5 +11,15 @@ describe('Posts Routes suite tests', () => {
             })
             .expect(400)
       })
+
+      it('Should return 201 on success', async () => {
+        const httpResponse = await request(app)
+          .post('/api/posts')
+          .send({
+            title: 'any_title',
+            text: 'any_text'
+          })
+          .expect(201)
+      })
   });
 })
