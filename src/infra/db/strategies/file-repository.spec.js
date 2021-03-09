@@ -1,4 +1,4 @@
-const { FileRepository } = require('./post-file-repository')
+const { FileRepository } = require('./file-repository')
 const { writeFile, readFile } = require('fs/promises')
 const { envConfig } = require('../../../main/config/environment')
 const uuid = require('uuid')

@@ -1,5 +1,5 @@
 const { IPost } = require('../../infra/db/protocols/post')
-const { DbAddPost } = require('./add-post')
+const { DbAddPost } = require('./db-add-post')
 
 const mockPostData = () => ({
     title: 'any_title',
