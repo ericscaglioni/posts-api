@@ -52,15 +52,10 @@ describe('Load Posts usecase suite tests', () => {
             await expect(promise).rejects.toThrow()
         })
 
-        // it('Should return a PostModel on success', async () => {
-        //     const { sut } = makeSut()
-        //     const postModel = await sut.add(mockPostData())
-        //     expect(postModel).toEqual({
-        //         ['any_id']: {
-        //             title: 'any_title',
-        //             text: 'any_text'
-        //         }
-        //     })
-        // })
+        it('Should return posts on success', async () => {
+            const { sut } = makeSut()
+            const result = await sut.loadAll()
+            expect(result).toEqual(mockPosts())
+        })
     })
 })
