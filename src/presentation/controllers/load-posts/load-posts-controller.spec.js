@@ -51,14 +51,14 @@ describe('Load Posts Controller suite tests', () => {
         expect(loadAllSpy).toHaveBeenCalled()
     })
 
-    // it('Should return 500 if IAddPost throws', async () => {
-    //     const { sut, iAddPostStub } = makeSut()
-    //     jest.spyOn(iAddPostStub, 'add').mockImplementationOnce(() => {
-    //         throw new Error('test')
-    //     })
-    //     const httpResponse = await sut.handle(mockHttpRequest())
-    //     expect(httpResponse).toEqual(serverError(new Error('test')))
-    // })
+    it('Should return 500 if ILoadPosts throws', async () => {
+        const { sut, iLoadPostsStub } = makeSut()
+        jest.spyOn(iLoadPostsStub, 'loadAll').mockImplementationOnce(() => {
+            throw new Error('test')
+        })
+        const httpResponse = await sut.handle({})
+        expect(httpResponse).toEqual(serverError(new Error('test')))
+    })
 
     // it('Should return 201 on success', async () => {
     //     const { sut } = makeSut()

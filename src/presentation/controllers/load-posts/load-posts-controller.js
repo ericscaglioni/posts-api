@@ -15,7 +15,6 @@ class LoadPostsController extends IController {
             }
             return ok(result)
         } catch (error) {
-            console.error(error)
             return serverError(error)
         }
     }
