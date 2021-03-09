@@ -43,14 +43,14 @@ describe('Load Posts usecase suite tests', () => {
             expect(loadAllSpy).toHaveBeenCalled()
         })
 
-        // it('Should throw if IAddPostRepository throws', async () => {
-        //     const { sut, iAddPostRepositoryStub } = makeSut()
-        //     jest.spyOn(iAddPostRepositoryStub, 'add').mockImplementationOnce(() => {
-        //         throw new Error('test')
-        //     })
-        //     const promise = sut.add(mockPostData())
-        //     await expect(promise).rejects.toThrow()
-        // })
+        it('Should throw if IPost throws', async () => {
+            const { sut, iPostRepositoryStub } = makeSut()
+            jest.spyOn(iPostRepositoryStub, 'loadAll').mockImplementationOnce(() => {
+                throw new Error('test')
+            })
+            const promise = sut.loadAll()
+            await expect(promise).rejects.toThrow()
+        })
 
         // it('Should return a PostModel on success', async () => {
         //     const { sut } = makeSut()
