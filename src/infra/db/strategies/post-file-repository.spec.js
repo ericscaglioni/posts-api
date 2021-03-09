@@ -1,22 +1,29 @@
 const { FileRepository } = require('./post-file-repository')
 const { writeFile, readFile } = require('fs/promises')
 const { envConfig } = require('../../../main/config/environment')
+const uuid = require('uuid')
+
+jest.mock('uuid', () => ({
+    v4: jest.fn().mockImplementation(() => {
+        return 'any_id'
+    })
+}))
 
 const filePath = `${process.cwd()}/${envConfig.dbStrategyURL.file}`
 
 const makeSut = () => new FileRepository()
 
-let postCollection = []
+let posts = {}
 
 describe('Post File Repository suite tests', () => {
     describe('add()', () => {
         beforeEach(async () => {
-            writeFile(filePath, '[]')
-            postCollection = JSON.parse(await readFile(filePath))
+            writeFile(filePath, '{}')
+            posts = JSON.parse(await readFile(filePath))
         })
 
         it('Should save a post on success', async () => {
-            expect(postCollection).toHaveLength(0)
+            expect(posts).toEqual({})
 
             const sut = makeSut()
             const postData = {
@@ -25,9 +32,10 @@ describe('Post File Repository suite tests', () => {
             }
             const postModel = await sut.add(postData)
 
-            postCollection = JSON.parse(await readFile(filePath))
-            expect(postCollection).toHaveLength(1)
-            expect(postCollection[0]).toEqual(postModel)
+            posts = JSON.parse(await readFile(filePath))
+            expect(posts).toBeTruthy()
+            expect(posts).toHaveProperty('any_id')
+            expect(posts['any_id']).toEqual(postModel)
         })
     });
 });

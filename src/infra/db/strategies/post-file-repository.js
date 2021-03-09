@@ -25,14 +25,14 @@ class FileRepository extends IPost {
     }
 
     async add (postData) {
-        const postCollection = await this._readFile()
+        const posts = await this._readFile()
         const postModel = new PostModel({
             ...postData
         })
-        postModel.id = uuidv4()
-        postCollection.push(postModel)
-        await this._writeFile(postCollection)
-        return postModel
+        const id = uuidv4()
+        posts[id] = postModel
+        await this._writeFile(posts)
+        return posts[id]
     }
 }
 
