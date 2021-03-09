@@ -34,6 +34,10 @@ class FileRepository extends IPost {
         await this._writeFile(posts)
         return posts[id]
     }
+
+    async loadAll () {
+        return await this._readFile()
+    }
 }
 
 module.exports = {
