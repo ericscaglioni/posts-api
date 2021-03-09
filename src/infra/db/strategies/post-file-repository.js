@@ -1,12 +1,13 @@
 const { IPost } = require('../protocols/post')
-const { join } = require('path')
 const { readFile, writeFile } = require('fs/promises')
 const { v4: uuidv4 } = require('uuid')
 const { PostModel } = require('../../../domain/models/post-model')
+const { envConfig } = require('../../../main/config/environment')
+
 class FileRepository extends IPost {
     constructor () {
         super()
-        this.filePath = join(__dirname, '../tests/post-file-database.json')
+        this.filePath = `${process.cwd()}/${envConfig.dbStrategyURL.file}`
     }
 
     async _readFile () {

@@ -5,7 +5,7 @@ class IPost {
         return new NotImplementedException()
     }
 
-    isConnected () {
+    async connect () {
         return new NotImplementedException()
     }
 }

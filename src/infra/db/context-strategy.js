@@ -5,8 +5,12 @@ class ContextStrategy extends IPost {
         this._database = strategy
     }
 
-    add (postModel) {
+    async add (postModel) {
         return this._database.add(postModel)
+    }
+
+    async connect () {
+        return this._database.connect()
     }
 }
 

@@ -1,4 +1,3 @@
-const { MissingParamError } = require('../../errors')
 const { badRequest, serverError, created } = require('../../helpers/http/http-helper')
 const { IController } = require('../../protocols')
 

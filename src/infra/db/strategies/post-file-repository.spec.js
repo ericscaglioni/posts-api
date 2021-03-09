@@ -1,8 +1,8 @@
 const { FileRepository } = require('./post-file-repository')
-const { join } = require('path')
 const { writeFile, readFile } = require('fs/promises')
+const { envConfig } = require('../../../main/config/environment')
 
-const filePath = join(__dirname, '../tests/post-file-database.json')
+const filePath = `${process.cwd()}/${envConfig.dbStrategyURL.file}`
 
 const makeSut = () => new FileRepository()
 
