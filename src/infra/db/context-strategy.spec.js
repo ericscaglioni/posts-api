@@ -9,9 +9,27 @@ const mockIPost = () => {
 
         async add (postData) {
             return {
-                id: 'any_id',
-                title: 'any_title',
-                text: 'any_text'
+                ['any_id']: {
+                    title: 'any_title',
+                    text: 'any_text'
+                }
+            }
+        }
+
+        async loadAll () {
+            return {
+                ['any_id']: {
+                    title: 'any_title',
+                    text: 'any_text'
+                },
+                ['any_id_2']: {
+                    title: 'any_title_2',
+                    text: 'any_text_2'
+                },
+                ['any_id_3']: {
+                    title: 'any_title_3',
+                    text: 'any_text_3'
+                }
             }
         }
     }
@@ -42,7 +60,7 @@ describe('Context Strategy suite tests', () => {
             expect(addSpy).toHaveBeenCalledWith(postData)
         })
 
-        it('Should throw if PostData throws', async () => {
+        it('Should throw if IPost throws', async () => {
             const { sut, iPostStub } = makeSut()
             jest.spyOn(iPostStub, 'add').mockImplementationOnce(() => {
                 throw new Error()
@@ -55,12 +73,14 @@ describe('Context Strategy suite tests', () => {
             const { sut} = makeSut()
             const postModel = await sut.add(mockPostData())
             expect(postModel).toEqual({
-                id: 'any_id',
-                title: 'any_title',
-                text: 'any_text'
+                ['any_id']: {
+                    title: 'any_title',
+                    text: 'any_text'
+                }
             })
         })
     })
+
     describe('connect()', () => {
         it('Should call IPost', async () => {
             const { sut, iPostStub } = makeSut()
@@ -69,12 +89,30 @@ describe('Context Strategy suite tests', () => {
             expect(connectSpy).toHaveBeenCalled()
         })
 
-        it('Should throw if PostData throws', async () => {
+        it('Should throw if IPost throws', async () => {
             const { sut, iPostStub } = makeSut()
             jest.spyOn(iPostStub, 'connect').mockImplementationOnce(() => {
                 throw new Error()
             })
             const promise = sut.connect()
+            await expect(promise).rejects.toThrow()
+        })
+    })
+
+    describe('loadAll()', () => {
+        it('Should call IPost', async () => {
+            const { sut, iPostStub } = makeSut()
+            const loadAllSpy = jest.spyOn(iPostStub, 'loadAll')
+            await sut.loadAll()
+            expect(loadAllSpy).toHaveBeenCalled()
+        })  
+
+        it('Should throw if IPost throws', async () => {
+            const { sut, iPostStub } = makeSut()
+            jest.spyOn(iPostStub, 'loadAll').mockImplementationOnce(() => {
+                throw new Error()
+            })
+            const promise = sut.loadAll()
             await expect(promise).rejects.toThrow()
         })
     })

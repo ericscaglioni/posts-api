@@ -1,4 +1,4 @@
-const { IAddPostRepository } = require('../protocols/db/add-post-repository')
+const { IPost } = require('../../infra/db/protocols/post')
 const { DbAddPost } = require('./add-post')
 
 const mockPostData = () => ({
@@ -7,12 +7,13 @@ const mockPostData = () => ({
 })
 
 const mockIAddPostRepository = () => {
-    class IAddPostRepositoryStub extends IAddPostRepository {
+    class IAddPostRepositoryStub extends IPost {
         async add (postData) {
             return {
-                id: 'any_id',
-                title: 'any_title',
-                text: 'any_text'
+                ['any_id']: {
+                    title: 'any_title',
+                    text: 'any_text'
+                }
             }
         }
     }
@@ -51,9 +52,10 @@ describe('Add Post usecase suite tests', () => {
             const { sut } = makeSut()
             const postModel = await sut.add(mockPostData())
             expect(postModel).toEqual({
-                id: 'any_id',
-                title: 'any_title',
-                text: 'any_text'
+                ['any_id']: {
+                    title: 'any_title',
+                    text: 'any_text'
+                }
             })
         })
     });

@@ -5,6 +5,10 @@ class IPost {
         return new NotImplementedException()
     }
 
+    async loadAll () {
+        return new NotImplementedException()
+    }
+
     async connect () {
         return new NotImplementedException()
     }
