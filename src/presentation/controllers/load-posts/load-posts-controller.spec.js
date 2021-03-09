@@ -1,5 +1,4 @@
-const { badRequest, serverError, created, notFound } = require('../../helpers/http/http-helper')
-const { MissingParamError } = require('../../errors')
+const { ok, serverError, notFound } = require('../../helpers/http/http-helper')
 const { LoadPostsController } = require('./load-posts-controller')
 const { ILoadPosts } = require('../../../domain/usecases/load-posts')
 
@@ -60,13 +59,9 @@ describe('Load Posts Controller suite tests', () => {
         expect(httpResponse).toEqual(serverError(new Error('test')))
     })
 
-    // it('Should return 201 on success', async () => {
-    //     const { sut } = makeSut()
-    //     const httpResponse = await sut.handle(mockHttpRequest())
-    //     expect(httpResponse).toEqual(created({
-    //         id: 'any_id',
-    //         title: 'any_title',
-    //         text: 'any_text'
-    //     }))
-    // })
+    it('Should return 201 on success', async () => {
+        const { sut } = makeSut()
+        const httpResponse = await sut.handle({})
+        expect(httpResponse).toEqual(ok(mockPosts()))
+    })
 });
