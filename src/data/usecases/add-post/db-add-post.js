@@ -1,4 +1,4 @@
-const { IPost } = require('../../infra/db/protocols/post')
+const { IPost } = require('../../../infra/db/protocols/post')
 
 class DbAddPost extends IPost {
     constructor(iAddPostRepository) {
