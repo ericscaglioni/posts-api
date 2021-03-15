@@ -65,7 +65,23 @@ describe('Post File Repository suite tests', () => {
             
             const sut = makeSut() 
             const result = await sut.loadAll()
-            expect(result).toEqual(mockPosts())
+            expect(result).toEqual([{
+                    'any_id': {
+                        title: 'any_title',
+                        text: 'any_text'
+                    }
+                }, {
+                    'any_id_2': {
+                        title: 'any_title_2',
+                        text: 'any_text_2'
+                    }
+                }, {
+                    'any_id_3': {
+                        title: 'any_title_3',
+                        text: 'any_text_3'
+                    }
+                }
+            ])
         })
     })
 })

@@ -3,6 +3,7 @@ const { readFile, writeFile } = require('fs/promises')
 const { v4: uuidv4 } = require('uuid')
 const { PostModel } = require('../../../domain/models/post-model')
 const { envConfig } = require('../../../main/config/environment')
+const { convertObjToArray } = require('../../../utils')
 
 class FileRepository extends IPost {
     constructor () {
@@ -36,7 +37,8 @@ class FileRepository extends IPost {
     }
 
     async loadAll () {
-        return await this._readFile()
+        const posts = await this._readFile()
+        return convertObjToArray(posts)
     }
 }
 
