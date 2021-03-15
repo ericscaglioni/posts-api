@@ -54,7 +54,7 @@ describe('Post File Repository suite tests', () => {
             posts = JSON.parse(await readFile(filePath))
             expect(posts).toBeTruthy()
             expect(posts).toHaveProperty('any_id')
-            expect(posts['any_id']).toEqual(postModel)
+            expect(posts).toEqual(postModel)
         })
     })
 

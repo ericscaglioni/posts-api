@@ -33,7 +33,11 @@ class FileRepository extends IPost {
         const id = uuidv4()
         posts[id] = postModel
         await this._writeFile(posts)
-        return posts[id]
+        return {
+            [id]: {
+                ...posts[id]
+            }
+        }
     }
 
     async loadAll () {
