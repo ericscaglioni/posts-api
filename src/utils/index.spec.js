@@ -19,5 +19,44 @@ describe('Utils suite tests', () => {
             expect(Array.isArray(result)).toBeTruthy()
             expect(result).toHaveLength(0)
         })
+
+        it('Should return an array on success', () => {
+            const objToConvert = {
+                '1': {
+                    name: 'any_name',
+                    address: {
+                        street: 'any_street_name',
+                        number: 1
+                    }
+                },
+                '2': {
+                    name: 'any_name',
+                    address: {
+                        street: 'any_street_name',
+                        number: 2
+                    }
+                }
+            }
+            const result = utils.convertObjToArray(objToConvert)
+            expect(Array.isArray(result)).toBeTruthy()
+            expect(result).toHaveLength(2)
+            expect(result).toEqual([{
+                '1': {
+                    name: 'any_name',
+                    address: {
+                        street: 'any_street_name',
+                        number: 1
+                    }
+                }
+            }, {
+                '2': {
+                    name: 'any_name',
+                    address: {
+                        street: 'any_street_name',
+                        number: 2
+                    }
+                }
+            }])
+        })
     })
 })
