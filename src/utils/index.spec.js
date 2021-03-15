@@ -7,5 +7,11 @@ describe('Utils suite tests', () => {
             expect(Array.isArray(result)).toBeTruthy()
             expect(result).toHaveLength(0)
         })
+
+        it('Should return an empty array if null is provided', () => {
+            const result = utils.convertObjToArray(null)
+            expect(Array.isArray(result)).toBeTruthy()
+            expect(result).toHaveLength(0)
+        })
     })
 })
