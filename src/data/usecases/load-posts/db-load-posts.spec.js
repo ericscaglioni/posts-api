@@ -1,20 +1,23 @@
 const { IPost } = require('../../../infra/db/protocols/post')
 const { DbLoadPosts } = require('./db-load-posts')
 
-const mockPosts = () => ({
-    ['any_id']: {
-        title: 'any_title',
-        text: 'any_text'
-    },
-    ['any_id_2']: {
-        title: 'any_title_2',
-        text: 'any_text_2'
-    },
-    ['any_id_3']: {
-        title: 'any_title_3',
-        text: 'any_text_3'
+const mockPosts = () => ([{
+        ['any_id']: {
+            title: 'any_title',
+            text: 'any_text'
+        },
+    }, {
+        ['any_id_2']: {
+            title: 'any_title_2',
+            text: 'any_text_2'
+        }
+    }, {
+        ['any_id_3']: {
+            title: 'any_title_3',
+            text: 'any_text_3'
+        }
     }
-})
+])
 
 const mockIPost = () => {
     class IPostRepositoryStub extends IPost {
@@ -52,7 +55,7 @@ describe('Load Posts usecase suite tests', () => {
             await expect(promise).rejects.toThrow()
         })
 
-        it('Should return posts on success', async () => {
+        it('Should return a post\'s list on success', async () => {
             const { sut } = makeSut()
             const result = await sut.loadAll()
             expect(result).toEqual(mockPosts())
